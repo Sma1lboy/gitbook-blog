@@ -33,7 +33,7 @@ At this point, when you restart the Application and try to access `/hello`, you'
 
 # Authentication
 ## Login Verification Process
-![Login Verification Process](image-20240502000955210.png)
+![Login Verification Process](./Spring%20Security%20Notes/image-20240502000955210.png)
 
 The core principle is that during the first login:
 > The entry-level case might differ slightly from the above. The default case strategy is based on Session.
@@ -48,7 +48,7 @@ The core principle is that during the first login:
 ## Some Principles
 ### Complete Spring Security Process
 Spring Security is essentially a filter chain, containing filters that provide various functionalities.
-![Spring Security Filter Chain](image-20240502001706129.png)
+![Spring Security Filter Chain](./Spring%20Security%20Notes/image-20240502001706129.png)
 
 The image only shows core filters; non-core filters are hidden.
 
@@ -60,7 +60,7 @@ The image only shows core filters; non-core filters are hidden.
 The first two are responsible for **authentication**, while the last one is responsible for **authorization**.
 
 ### Entry-level Case Authentication Process
-![Authentication Process](image-20240502002749857.png)
+![Authentication Process](./Spring%20Security%20Notes/image-20240502002749857.png)
 
 Authentication interface: Its implementation class represents the current user accessing the system, encapsulating user-related information.
 AuthenticationManager interface: Defines the method for authenticating Authentication.
@@ -81,16 +81,16 @@ Authentication process:
 ## How to Modify It to Fit Our Needs
 1. We definitely can't use the default UserDetailsService; we need to get information from our database.
 2. When the information is returned to the Filter, we can't generate a token, so we need to replace this layer of Filter in our own Controller, then call the second layer in the controller.
-![Modified Authentication Process](image-20240502004820504.png)
+![Modified Authentication Process](./Spring%20Security%20Notes/image-20240502004820504.png)
 
 ## How to Verify Subsequently
-![Subsequent Verification Process](image-20240502005126589.png)
+![Subsequent Verification Process](./Spring%20Security%20Notes/image-20240502005126589.png)
 
 But how do we get complete user information later? If we want to get user permissions, do we need to search the database again?
 So we can use Redis cache or use ThreadLocal (not suitable for clusters) to reduce database pressure.
 When authentication passes and JWT is generated, use userId as the key and user information as the value, and store it in Redis.
 ![Storing User Information in Redis](image-20240502005356933.png)
-![Retrieving User Information from Redis](image-20240502005409646.png)
+![Retrieving User Information from Redis](./Spring%20Security%20Notes/image-20240502005409646.png)
 
 ## Thought Summary
 Login
@@ -145,7 +145,7 @@ First, enable the annotation method through `@EnableGlobalMethodSecurity(prePost
 Then add the @PreAuthorize annotation to the method to mark permissions. Later, we can self-encapsulate based on PreAuthorize.
 
 Similarly, we need to encapsulate permissions into the Authentication object when logging in for the first time. The actual permissions can be stored anywhere. If we just think about it, the chosen solution is to store permissions in the object, and then implement OneToMany. It's similar to this:
-![User-to-Permissions Relationship](image-20240504000837146.png)
+![User-to-Permissions Relationship](./Spring%20Security%20Notes/image-20240504000837146.png)
 
 Right? But if there are too many users, and one user corresponds to multiple permissions, it will actually make the table explode.
 
@@ -157,7 +157,7 @@ So here's a solution called
 ## RBAC Permission Model,
 Role-Based Access Control, which is currently the most used and most common among developers.
 
-![RBAC Model](image-20240504001025094.png)
+![RBAC Model](./Spring%20Security%20Notes/image-20240504001025094.png)
 
 Similarly, it can be understood that we use **roles** to:
 1. Prevent users from directly making a one-to-many relationship with the permission table
@@ -206,8 +206,8 @@ Actually, CSRF is a web attack method. In the configuration, this turns off the 
 
 Spring Security's method of prevention is to generate a csrf_token. The backend needs to generate this token, and the frontend needs to carry this token when making requests. The backend will have a filter to verify, and if it's not carried, it's considered fake and access is not allowed.
 
-CSRF attacks rely on the authentication information carried in cookies, but in front-end and back-end separated projects, we don't use cookies, and the token is not stored in cookies. So we don't need this, and we execute by putting the token in the request header through front-end code.
+CSRF attacks rely on the authentication information carried in cookies, but in front-end and back-end separated projects, we don't use cookies, and the token is not 21stored in cookies. So we don't need this, and we execute by putting the token in the request header through front-end code.
 
-![CSRF Attack and Prevention](image-20240504173716667.png)
+![CSRF Attack and Prevention](./Spring%20Security%20Notes/image-20240504173716667.png)
 
 So why can it prevent? We usually put the token in localStorage, and web B cannot cross-domain read web A's localStorage.
