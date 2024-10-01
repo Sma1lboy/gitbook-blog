@@ -1,3 +1,7 @@
+---
+Date: 2024-09-23
+---
+
 # Programming Paradigms: Declarative vs Imperative
 
 Imperative progrqamming and declarative programming are fundamental programming paradigms. We'll explore their differences using JavaScript examples.
@@ -15,37 +19,40 @@ Imperative <------------------------------------> Declarative
 
 While often confused, these concepts serve different purposes:
 
-| Feature        | Programming Paradigm                                              | Programming Convention                                              |
-|----------------|-------------------------------------------------------------------|---------------------------------------------------------------------|
-| **Focus**      | Problem-solving approach and code structure                       | Consistency and readability within a codebase                       |
-| **Scope**      | Affects the entire program design and logic flow                  | Typically applies to syntax and code organization                   |
-| **Flexibility** | Determined by language design and features                        | Can be adjusted based on team or project needs                      |
-| **Learning**   | Requires understanding fundamental programming concepts           | Can be learned and applied quickly within a team                    |
-| **Impact**     | Influences how problems are decomposed and solutions are designed | Affects code maintainability and team collaboration                 |
+| Feature         | Programming Paradigm                                              | Programming Convention                              |
+| --------------- | ----------------------------------------------------------------- | --------------------------------------------------- |
+| **Focus**       | Problem-solving approach and code structure                       | Consistency and readability within a codebase       |
+| **Scope**       | Affects the entire program design and logic flow                  | Typically applies to syntax and code organization   |
+| **Flexibility** | Determined by language design and features                        | Can be adjusted based on team or project needs      |
+| **Learning**    | Requires understanding fundamental programming concepts           | Can be learned and applied quickly within a team    |
+| **Impact**      | Influences how problems are decomposed and solutions are designed | Affects code maintainability and team collaboration |
 
 ## Declarative Programming: Describing the "What"
 
 Declarative programming focuses on describing the desired outcome without explicitly listing the steps to achieve it.
 
 ### Key Aspects:
+
 - Abstraction of control flow
 - Emphasis on expressions over statements
 - Minimization of side effects
 
 ### Unique Insight:
+
 Declarative programming often leads to more robust code in multi-threaded environments. By focusing on "what" rather than "how," it naturally avoids many concurrency issues.
 
 ### Advanced Example:
+
 ```javascript
 // Declarative approach to data transformation
 const transformData = (data, transformations) =>
-  transformations.reduce((acc, transform) => transform(acc), data);
+  transformations.reduce((acc, transform) => transform(acc), data)
 
 const result = transformData(initialData, [
   sortByDate,
   filterOutInactiveUsers,
-  mapToUsernames
-]);
+  mapToUsernames,
+])
 ```
 
 This example showcases how declarative programming can lead to highly composable and flexible code structures.
@@ -55,37 +62,40 @@ This example showcases how declarative programming can lead to highly composable
 Imperative programming involves giving the computer a sequence of tasks and then specifying how to perform those tasks.
 
 ### Key Aspects:
+
 - Explicit control flow
 - Direct manipulation of program state
 - Step-by-step instructions
 
 ### Unique Insight:
+
 While often criticized for verbosity, imperative programming can lead to more predictable performance in time-critical applications, as the programmer has fine-grained control over each operation.
 
 ### Advanced Example:
+
 ```javascript
 // Imperative approach to custom memory management
 function customMemoryManager() {
-  let memory = new ArrayBuffer(1024);
-  let freeList = [[0, 1024]];
+  let memory = new ArrayBuffer(1024)
+  let freeList = [[0, 1024]]
 
   return {
     allocate(size) {
       for (let i = 0; i < freeList.length; i++) {
         if (freeList[i][1] >= size) {
-          const start = freeList[i][0];
-          freeList[i][0] += size;
-          freeList[i][1] -= size;
-          if (freeList[i][1] === 0) freeList.splice(i, 1);
-          return start;
+          const start = freeList[i][0]
+          freeList[i][0] += size
+          freeList[i][1] -= size
+          if (freeList[i][1] === 0) freeList.splice(i, 1)
+          return start
         }
       }
-      throw new Error("Out of memory");
+      throw new Error('Out of memory')
     },
     free(start, size) {
       // Implementation of memory freeing
-    }
-  };
+    },
+  }
 }
 ```
 
