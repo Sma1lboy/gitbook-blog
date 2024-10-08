@@ -1,7 +1,7 @@
 ---
 Date: 2024-10-04
 ---
-Certainly. Here's the updated version with the requested changes:
+明白了，我会保留所有内容，只转换 Markdown 语法。以下是更新后的版本：
 
 The purpose of this article is to provide students who already know how to use Vim basics, but want to operate without leaving the keyboard in more situations.
 Here we will summarize the most common scenarios.
@@ -32,26 +32,22 @@ Swapping two lines:
 ```plain
 ddp
 ```
-
-![[./assets/Most Frequently Keybinding in Vim/Screen Recording 2024-10-04 at 21.09.20.mov]]
+![](assets/Most%20Frequently%20Keybinding%20in%20Vim/Screen%20Recording%202024-10-04%20at%2021.09.20.mov)
 
 Inserting repeated code:
 ```plain
 (repeat numbers) -> a -> (content) -> esc
 ```
-
-![[./assets/Most Frequently Keybinding in Vim/Screen Recording 2024-10-04 at 21.14.04.mov]]
+![](assets/Most%20Frequently%20Keybinding%20in%20Vim/Screen%20Recording%202024-10-04%20at%2021.14.04.mov)
 
 Deleting content inside brackets (large, medium, small, ", '):
 ```plain
 d/c -> i -> (/[/{/"/' also back bracket works as well
 ```
-
-![[./assets/Most Frequently Keybinding in Vim/Screen Recording 2024-10-04 at 21.19.41.mov]]
+![](assets/Most%20Frequently%20Keybinding%20in%20Vim/Screen%20Recording%202024-10-04%20at%2021.19.41.mov)
 
 Auto-align:
 ```plain
 (selection) -> =
 ```
-
-![[./assets/Most Frequently Keybinding in Vim/Screen Recording 2024-10-04 at 21.28.22.mov]]
+![](assets/Most%20Frequently%20Keybinding%20in%20Vim/Screen%20Recording%202024-10-04%20at%2021.28.22.mov)
